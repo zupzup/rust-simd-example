@@ -1,13 +1,16 @@
 #![feature(portable_simd)]
 use criterion::{criterion_group, criterion_main, Criterion};
 use num::SimdFloat;
+use std::simd::SupportedLaneCount;
 use std::simd::*;
+// TODO: make generic over SupportedLaneCount
+// => Benchmark which lane count makes the most sense
 
 pub fn simple_calc_simd(input: &[f32]) -> f32 {
-    let multiplicator = f32x64::splat(10.0);
+    let multiplicator = f32x4::splat(10.0);
     let mut result: f32 = 0.0;
-    input.chunks(64).for_each(|chunk| {
-        let arr = f32x64::from_slice(chunk);
+    input.chunks(4).for_each(|chunk| {
+        let arr = f32x4::from_slice(chunk);
         let mul = arr * multiplicator;
         let sum = mul.reduce_sum();
         result += sum;
