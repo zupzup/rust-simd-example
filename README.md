@@ -1,3 +1,3 @@
 # rust-simd-example
 
-simdsimdsimdsimdsimd
+simdsimdsimdsimdsimdsimdsimd
